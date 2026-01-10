@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, DARYNA-TKACHENKO-REACT-WEEK4 ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -43,7 +43,7 @@ jobs:
         wait-on: 'http://localhost:5173'
         
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: cypress-screenshots
