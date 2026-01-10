@@ -1,0 +1,39 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ main, DARYNA-TKACHENKO-REACT-WEEK4 ]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm ci
+      
+    - name: Start backend server
+      working-directory: ./backend
+      run: |
+        npm start &
+        sleep 5
+        
+    - name: Test backend endpoints
+      run: |
+        curl -f http://localhost:3002/api/stats || exit 1
+        echo "Backend is running successfully"

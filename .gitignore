@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+*.log
+.env
+.env.local
+.env.production
+cypress/videos
+cypress/screenshots
+backend/data/*.json
+coverage
+.vscode
+.idea
