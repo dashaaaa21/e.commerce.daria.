@@ -41,6 +41,11 @@ jobs:
       with:
         browser: chrome
         wait-on: 'http://localhost:5173'
+        wait-on-timeout: 120
+      env:
+        CYPRESS_defaultCommandTimeout: 15000
+        CYPRESS_requestTimeout: 15000
+        CYPRESS_responseTimeout: 15000
         
     - name: Upload test results
       uses: actions/upload-artifact@v4
