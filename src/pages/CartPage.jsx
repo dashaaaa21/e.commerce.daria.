@@ -51,7 +51,7 @@ function CartPage() {
       const order = await createOrder(orderData);
       toast.success(`Order #${order.id} created successfully!`);
       clearCart();
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to create order. Please try again.');
     } finally {
       setIsCheckingOut(false);
