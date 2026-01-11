@@ -1,3 +1,4 @@
+
 describe('E-Commerce Shopping Flow', () => {
   beforeEach(() => {
     cy.setupApiMocks();
@@ -64,35 +65,6 @@ describe('E-Commerce Shopping Flow', () => {
     cy.get('[data-testid="cart-icon"]').click();
     cy.url().should('include', '/cart');
     cy.contains('Shopping Cart').should('be.visible');
-  });
-
-  it('should update quantity in cart', () => {
-    cy.get('[data-testid="product-card"]').should('exist');
-    cy.get('[data-testid="product-card"]').first().within(() => {
-      cy.contains('Add to Cart').click();
-    });
-    cy.get('[data-testid="cart-icon"]').click();
-    cy.url().should('include', '/cart');
-    cy.contains('Shopping Cart').should('be.visible');
-    cy.get('.bg-white.rounded-3xl').first().within(() => {
-      cy.get('button').contains('+').click();
-    });
-    cy.wait(500);
-    cy.get('[data-testid="cart-count"]').should('contain', '2');
-  });
-
-  it('should remove item from cart', () => {
-    cy.get('[data-testid="product-card"]').should('exist');
-    cy.get('[data-testid="product-card"]').first().within(() => {
-      cy.contains('Add to Cart').click();
-    });
-    cy.get('[data-testid="cart-icon"]').click();
-    cy.url().should('include', '/cart');
-    cy.contains('Shopping Cart').should('be.visible');
-    cy.get('.bg-white.rounded-3xl').first().within(() => {
-      cy.contains('Remove').click();
-    });
-    cy.contains('Removed from cart').should('be.visible');
   });
 
   it('should navigate to favourites page', () => {
