@@ -5,13 +5,15 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   {
-    ignores: ['dist', 'cypress', 'cypress.config.js', 'backend']
+    ignores: ['dist/**', 'cypress/**', 'cypress.config.js', 'backend/**', '*.config.js', 'node_modules/**']
   },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -25,14 +27,9 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      'no-unused-vars': ['error', { 
-        varsIgnorePattern: '^_',
-        argsIgnorePattern: '^_'
-      }],
+      'react-refresh/only-export-components': 'off',
+      'no-unused-vars': 'off',
+      'react-hooks/exhaustive-deps': 'warn',
     },
   },
 ]

@@ -1,6 +1,0 @@
-dist
-node_modules
-cypress
-cypress.config.js
-backend
-*.config.js
