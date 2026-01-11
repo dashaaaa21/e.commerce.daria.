@@ -72,7 +72,7 @@ describe('E-Commerce Shopping Flow', () => {
       cy.contains('Add to Cart').click();
     });
     cy.get('[data-testid="cart-icon"]').click();
-    cy.get('button').contains('+').click();
+    cy.contains('button', '+').click();
     cy.wait(500);
     cy.get('[data-testid="cart-count"]').should('contain', '2');
   });
@@ -83,7 +83,7 @@ describe('E-Commerce Shopping Flow', () => {
       cy.contains('Add to Cart').click();
     });
     cy.get('[data-testid="cart-icon"]').click();
-    cy.contains('Remove').click();
+    cy.contains('button', 'Remove').click();
     cy.contains('Removed from cart').should('be.visible');
   });
 
