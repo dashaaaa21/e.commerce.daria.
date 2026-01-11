@@ -1,10 +1,22 @@
 const BASE_URL = 'https://fakestoreapi.com';
 
-export const fetchCategories = async () => {
-  const response = await fetch(`${BASE_URL}/products/categories`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch categories');
+const fetchWithRetry = async (url, retries = 3, delay = 1000) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response;
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
   }
+};
+
+export const fetchCategories = async () => {
+  const response = await fetchWithRetry(`${BASE_URL}/products/categories`);
   return response.json();
 };
 
@@ -13,17 +25,11 @@ export const fetchProducts = async (category = null) => {
     ? `${BASE_URL}/products/category/${category}`
     : `${BASE_URL}/products`;
   
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Failed to fetch products');
-  }
+  const response = await fetchWithRetry(url);
   return response.json();
 };
 
 export const fetchProductById = async (id) => {
-  const response = await fetch(`${BASE_URL}/products/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch product details');
-  }
+  const response = await fetchWithRetry(`${BASE_URL}/products/${id}`);
   return response.json();
 };
